@@ -1,0 +1,251 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+// swift-module-flags: -target x86_64-apple-ios8.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name PaymentSDK
+import Foundation
+@_exported import PaymentSDK
+import Swift
+import SystemConfiguration
+import UIKit
+import WebKit
+@objc public class PGMerchantConfiguration : ObjectiveC.NSObject {
+  @objc public static var defaultMerchantObject: PaymentSDK.PGMerchantConfiguration
+  @objc public static var onceConfiguration: Swift.Int
+  @objc public var merchantID: Swift.String
+  @objc public var website: Swift.String
+  @objc public var industryID: Swift.String
+  @objc public var channelID: Swift.String
+  @objc public var theme: Swift.String
+  @objc public var authMode: Swift.String
+  @objc public var paymentTypeID: Swift.String
+  @objc public var cardType: Swift.String
+  @objc public var bankCode: Swift.String
+  @objc public var clientSSLCertPath: Swift.String!
+  @objc public var clientSSLCertPassword: Swift.String!
+  @objc public var checksumGenerationURL: Swift.String
+  @objc public var checksumValidationURL: Swift.String
+  @objc public class func defaultConfiguration() -> PaymentSDK.PGMerchantConfiguration
+  @objc public func transactionParameters(for order: PaymentSDK.PGOrder) -> [Swift.String : Any]
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct IdentityAndTrust {
+}
+@objc public class PGUtils : ObjectiveC.NSObject {
+  @objc public var delegate: PaymentSDK.PGConnectionDelegate!
+  @objc public static var sharedInstance: PaymentSDK.PGUtils
+  @objc public class func setLogStatus(_ status: Swift.Bool)
+  @objc public class func dictionaryToURLEncodedString(dict: [Swift.AnyHashable : Any]) -> Swift.String
+  @objc public class func dictionaryFromURLEncodedString(urlEncodedString: Swift.String) -> [Swift.AnyHashable : Any]
+  @objc public class func dictionaryFromJsonString(jsonString: Swift.String) -> [Swift.AnyHashable : Any]
+  @objc public class func extractIdentity(_ certData: Foundation.Data) -> Darwin.OSStatus
+  @objc public class func noInternetError() -> Foundation.NSError?
+  @objc public class func checksumVerificationError() -> Foundation.NSError?
+  @objc public class func nilChecksumValidationURL() -> Foundation.NSError
+  @objc public class func missingParametrs(_ errorMessage: Swift.String) -> Swift.Error?
+  @objc public class func emptyDataError() -> Foundation.NSError
+  @objc public class func errorForResponseCode(responseCodeStr: Swift.String) -> Swift.Error
+  @objc public class func errorForHTTPCode(code: Swift.Int) -> Foundation.NSError
+  @objc public class func pgResponseCodes() -> [Swift.AnyHashable : Any]
+  @objc public class func requestForURL(url: Swift.String, withParms parms: [Swift.AnyHashable : Any]) -> Foundation.URLRequest
+  @objc public class func post(toURL url: Swift.String, with value: Swift.String, completionHandler handler: @escaping PaymentSDK.PGConnectionDelegateCompletionHandler)
+  @objc public class func post(toURL URL: Swift.String, withParms parms: [Swift.AnyHashable : Any], completionHandler handler: @escaping PaymentSDK.PGConnectionDelegateCompletionHandler)
+  @objc public func makeConnection(with request: Foundation.NSMutableURLRequest, completionHandler handler: @escaping PaymentSDK.PGConnectionDelegateCompletionHandler)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension String {
+  public func convertStringToDictionary() -> [Swift.String : Swift.AnyObject]?
+  public func stringByDecodingAndEncoding() -> Swift.String?
+  public func encodeURLString() -> Swift.String
+  public func stringByAddingPercentEncodingForRFC3986() -> Swift.String?
+}
+public typealias AlertViewControllerWithBlockHandler = (PaymentSDK.AlertControllerWithBlock, Swift.Int) -> Swift.Void
+@objc public class AlertControllerWithBlock : ObjectiveC.NSObject {
+  public class func showAlert(delegate: UIKit.UIViewController, message: Swift.String, strtitle: Swift.String, handler: ((UIKit.UIAlertAction) -> Swift.Void)! = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol PGTransactionDelegate : AnyObject {
+  @objc func didFinishedResponse(_ controller: PaymentSDK.PGTransactionViewController, response responseString: Swift.String)
+  @objc func didCancelTrasaction(_ controller: PaymentSDK.PGTransactionViewController)
+  @objc func errorMisssingParameter(_ controller: PaymentSDK.PGTransactionViewController, error: Foundation.NSError?)
+}
+@objc public enum PGMerchantVerificationStatus : Swift.Int {
+  case kCASVerificationStatusUndefined = 0
+  case kCASVerificationStatusSuccess = 1
+  case kCASVerificationStatusFailed = 2
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum PGTxnMode {
+  case PGTxnCAS
+  case PGTxnPG
+  case PGTxnNone
+  public static func == (a: PaymentSDK.PGTxnMode, b: PaymentSDK.PGTxnMode) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public var kResponseJSMethod: Swift.String
+public var kStatusKey: Swift.String
+public var kChecksumKey: Swift.String
+public var kContactingMessage: Swift.String
+public var kPleaseWaitMessage: Swift.String
+public var kProgressViewTag: ObjectiveC.NSInteger
+public var kWebViewTag: ObjectiveC.NSInteger
+@objc public class PGTransactionViewController : UIKit.UIViewController, UIKit.UIActionSheetDelegate {
+  @objc public var server: PaymentSDK.PGServerEnvironment
+  @objc public var txnParameters: [Swift.String : Any]
+  @objc public var clientAuthServerResponseDict: [Swift.AnyHashable : Any]
+  @objc public var webView: WebKit.WKWebView?
+  public var txnMode: PaymentSDK.PGTxnMode!
+  @objc public var pgRequest: Foundation.NSMutableURLRequest?
+  @objc public var isNavigationBarHiddenState: Swift.Bool
+  @objc public var delegate: PaymentSDK.PGTransactionDelegate?
+  @objc public var useStaging: Swift.Bool
+  @objc public var isLoggingEnabled: Swift.Bool
+  @objc public var serverType: PaymentSDK.ServerType
+  @objc public var merchant: PaymentSDK.PGMerchantConfiguration?
+  @objc public var sendAllChecksumResponseParamsToPG: Swift.Bool
+  @objc public var topBar: UIKit.UIView
+  @objc public var cancelButton: UIKit.UIButton
+  @objc public convenience init(transactionParameters parameters: [Swift.String : Any])
+  @objc public func initTransaction(for orderObj: PaymentSDK.PGOrder) -> Any
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @objc override dynamic public func loadView()
+  @objc public func isValidRequest() -> Swift.Bool
+  @objc public func cancel(_ sender: Any?)
+  @objc public func setLoggingEnabled(_ enabled: Swift.Bool)
+  @objc public func showProgress(_ progressString: Swift.String)
+  @objc public func hideProgress()
+  @objc override dynamic public func didReceiveMemoryWarning()
+  @objc public func finishedResponse(_ response: Swift.String)
+  @objc public func missingParameter(_ error: Foundation.NSError?)
+  @objc public func failedCallback(_ error: Swift.Error?, response dict: [Swift.AnyHashable : Any])
+  @objc public func successCallback(_ error: Swift.Error?, response dict: [Swift.AnyHashable : Any])
+  @objc public func cancelCallback()
+  @objc public func beginPGTransaction()
+  @objc public func loadAuthenticatedRequestInWebView()
+  @objc public func pgTransactionEnded(withResponseJSON json: Swift.String, urlEncodedString urlEncoded: Swift.String)
+  @objc public func cancelCurrentTransaction()
+  @objc public func cleanup()
+  @objc public func isLoadingCallbackURL(_ url: Swift.String) -> Swift.Bool
+  @objc public func validateMerchantChecksum(_ parms: [Swift.AnyHashable : Any])
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension PGTransactionViewController : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+}
+extension PGTransactionViewController : WebKit.WKUIDelegate {
+  @objc dynamic public func webView(_: WebKit.WKWebView, runJavaScriptAlertPanelWithMessage: Swift.String, initiatedByFrame: WebKit.WKFrameInfo, completionHandler: @escaping () -> Swift.Void)
+  @objc dynamic public func webView(_: WebKit.WKWebView, runJavaScriptConfirmPanelWithMessage: Swift.String, initiatedByFrame: WebKit.WKFrameInfo, completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc dynamic public func webView(_: WebKit.WKWebView, runJavaScriptTextInputPanelWithPrompt: Swift.String, defaultText: Swift.String?, initiatedByFrame: WebKit.WKFrameInfo, completionHandler: @escaping (Swift.String?) -> Swift.Void)
+}
+public var kMerchantId: Swift.String
+public var kWebsite: Swift.String
+public var kIndustryTypeID: Swift.String
+public var kTheme: Swift.String
+public var kChannelId: Swift.String
+public var kAuthMode: Swift.String
+public var kPaymentTypeID: Swift.String
+public var kCardType: Swift.String
+public var kBankCode: Swift.String
+public var PRODUCTION_PG_DOMAIN: Swift.String
+public var STAGING_PG_DOMAIN: Swift.String
+public var kCallBackURLFormat: Swift.String
+public var PGErrorDomain: Swift.String
+public var defaultTimeout: Foundation.TimeInterval
+public var s_LoggingEnabled: Swift.Bool!
+public var kStaging_PGServerURL: Swift.String
+public var kStaging_CancelTransactionURL: Swift.String
+public var kStaging_RefundServerURL: Swift.String
+public var kStaging_CASServerURL: Swift.String
+public var kStaging_StatusServerURL: Swift.String
+public var kProduction_PGServerURL: Swift.String
+public var kProduction_CancelTransactionURL: Swift.String
+public var kProduction_RefundServerURL: Swift.String
+public var kProduction_CASServerURL: Swift.String
+public var kProduction_StatusServerURL: Swift.String
+public func DLog(object: Any)
+@objc public enum ServerType : Swift.Int {
+  case eServerTypeProduction = 0
+  case eServerTypeStaging
+  case eServerTypeNone
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias ServerSelectionHandler = (PaymentSDK.ServerType) -> Swift.Void
+@objc public class PGServerEnvironment : ObjectiveC.NSObject {
+  @objc public var clientAuthURL: Swift.String
+  @objc public var paymentGatewayURL: Swift.String!
+  @objc public var statusQueryURL: Swift.String
+  @objc public var refundURL: Swift.String
+  @objc public var cancelTransactionURL: Swift.String
+  @objc public var callBackURLFormat: Swift.String
+  @objc public var checksumValidationURL: Swift.String
+  @objc public var isProduction: Swift.Bool
+  @objc public var servrEnvironmentCreated: Swift.Bool
+  @objc public var currentServer: PaymentSDK.PGServerEnvironment!
+  @objc public var serverSelectionDialogHandler: PaymentSDK.ServerSelectionHandler?
+  @objc public func createStagingEnvironment() -> PaymentSDK.PGServerEnvironment
+  @objc public func createProductionEnvironment() -> PaymentSDK.PGServerEnvironment
+  @objc public func currentServerEnvironment() -> PaymentSDK.PGServerEnvironment
+  @objc public func serverEnvironmentCreated() -> Swift.Bool
+  @objc public func selectServerDialog(_ parentView: UIKit.UIView, completionHandler handler: @escaping PaymentSDK.ServerSelectionHandler)
+  @objc public func statusForOrderID(orderID: Swift.String, responseHandler handler: @escaping ([Swift.String : Any]?, Swift.Error?) -> Swift.Void)
+  @objc public func domain() -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias PGConnectionDelegateCompletionHandler = (PaymentSDK.PGConnectionDelegate) -> Swift.Void
+@objc public class PGConnectionDelegate : ObjectiveC.NSObject, Foundation.NSURLConnectionDelegate, Foundation.NSURLConnectionDataDelegate {
+  @objc public var ignoreServerTrust: Swift.Bool
+  @objc public var response: Foundation.HTTPURLResponse!
+  @objc public var data: Foundation.NSData!
+  @objc public var error: Foundation.NSError!
+  @objc public var connection: Foundation.NSURLConnection!
+  @objc public var completionHandler: PaymentSDK.PGConnectionDelegateCompletionHandler?
+  @objc public var certificatePath: Swift.String!
+  @objc public var certificatePassword: Swift.String!
+  @objc public var challenge: Foundation.URLAuthenticationChallenge!
+  @objc public init(clientSSLCertificate certificatePath: Swift.String, password: Swift.String, completionHandler handler: @escaping PaymentSDK.PGConnectionDelegateCompletionHandler)
+  @objc public func handleServerTrustChallenge()
+  @objc public func handleClientTrustChallenge()
+  @objc public func connection(_ connection: Foundation.NSURLConnection, willSendRequestFor challenge: Foundation.URLAuthenticationChallenge)
+  @objc public func connection(_ connection: Foundation.NSURLConnection, didReceive response: Foundation.URLResponse)
+  @objc public func connection(_ connection: Foundation.NSURLConnection, didReceive data: Foundation.Data)
+  @objc public func connectionDidFinishLoading(_ connection: Foundation.NSURLConnection)
+  @objc public func connection(_ connection: Foundation.NSURLConnection, didFailWithError error: Swift.Error)
+  @objc public func connection(_ connection: Foundation.NSURLConnection, didCancel challenge: Foundation.URLAuthenticationChallenge)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class PGOrder : ObjectiveC.NSObject {
+  @objc public var orderID: Swift.String
+  @objc public var customerID: Swift.String
+  @objc public var amount: Swift.String
+  @objc public var eMail: Swift.String
+  @objc public var mobile: Swift.String
+  @objc public var params: [Swift.String : Any]
+  @objc public convenience init(orderID: Swift.String, customerID: Swift.String, amount: Swift.String, eMail: Swift.String, mobile: Swift.String)
+  required public convenience init(coder aDecoder: Foundation.NSCoder)
+  @objc public func encodeWithCoder(aCoder: Foundation.NSCoder)
+  @objc public func orderWithParams(dic: Swift.Dictionary<Swift.String, Swift.String>) -> Swift.Dictionary<Swift.String, Swift.String>
+  @objc override dynamic public init()
+  @objc deinit
+}

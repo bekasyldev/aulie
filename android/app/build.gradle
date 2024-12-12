@@ -1,0 +1,67 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+android {
+    namespace "kz.aulieata.library"
+    compileSdkVersion 34
+    ndkVersion "27.0.12077973"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += [
+            'src/main/kotlin',
+            'src/main/kotlin/kz/aulieata/library'
+        ]
+    }
+
+    defaultConfig {
+        applicationId "kz.aulieata.library"
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 24
+        versionName "4.8.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.20"
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
+    implementation 'com.onesignal:OneSignal:5.1.25'
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.3'
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579337712612",
+    "project_id": "ounb-f288a",
+    "storage_bucket": "ounb-f288a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579337712612:android:945a752d02042c7493cdf1",
+        "android_client_info": {
+          "package_name": "kz.aulieata.library"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH74opD5gk42t99MLkdQfoeP-BogKINXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
